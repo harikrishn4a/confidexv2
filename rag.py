@@ -118,14 +118,14 @@ Use the context from the document to answer questions about data sensitivity.
 Rules:
 1. Only use information from the provided context to answer questions.
 2. Be clear, specific, and concise.
-3. Ensure that you provide the response in the format: "According to Clause [clause_number], [reason]."
+3. Ensure that you provide the response in the format: "Clause [clause_number]: [reason]".
 
 Context:
 {context}
 
 Example of expected output:
 Question: "Why is NRIC sensitive?"
-Answer: "According to Clause 3.1.1, NRIC numbers are sensitive. Reason: NRIC numbers can be used for identity theft, fraud, and unauthorised access to personal services."
+Answer: "Clause 3.1.1: NRIC numbers are sensitive. NRIC numbers can be used for identity theft, fraud, and unauthorised access to personal services."
 
 Question: {input}
 Answer based on the context above:
