@@ -6,7 +6,7 @@ import numpy as np
 from seqeval.metrics import classification_report, f1_score, accuracy_score, precision_score, recall_score
 
 # Load your focused dataset for PERSON, EMAIL, PHONE
-dataset = load_from_disk("augmented_training")  # adjust path as needed
+dataset = load_from_disk("sg_pdpa_ner_dataset_full")  # adjust path as needed
 print("Loaded dataset type:", type(dataset))
 if hasattr(dataset, "keys"):
     print("DatasetDict keys:", list(dataset.keys()))
@@ -43,8 +43,8 @@ for split in ["train", "validation", "test"]:
         all_labels.update(example["ner_tags"])
 print("All unique labels in dataset:", all_labels)
 
-# Use base DistilBERT
-model_name = "finetuned-sg-privacy-model"
+# Use base DistilBERT from HF
+model_name = "Isotonic/distilbert_finetuned_ai4privacy_v2"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 config = AutoConfig.from_pretrained(model_name, num_labels=len(label2id), id2label=id2label, label2id=label2id)
 model = AutoModelForTokenClassification.from_pretrained(model_name, config=config, ignore_mismatched_sizes=True)

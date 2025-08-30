@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 # Load NER model and pipeline
-model_name = "finetuned-sg-privacy-model"
+model_name = "modelv1"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForTokenClassification.from_pretrained(model_name)
 ner_pipeline = pipeline("ner", model=model, tokenizer=tokenizer, aggregation_strategy="simple")
@@ -99,7 +99,7 @@ def scan(request: ScanRequest):
         flagged = []
         for entity_group, words in grouped.items():
             words_str = ', '.join(words)
-            q = f"Is it allowed to share {entity_group} like '{words_str}'?"
+            q = f"Why is {entity_group} like '{words_str}' sensitive?"
             explanation = ask_document_question(q)
             print(f"Q: {q}\nA: {explanation}")
             flagged.append({
@@ -120,3 +120,7 @@ def scan(request: ScanRequest):
             "flagged": [],
             "error": str(e)
         }
+
+@app.post("/api/privacy-check")
+def privacy_check(request: ScanRequest):
+    return scan(request)
