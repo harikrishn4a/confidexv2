@@ -161,16 +161,39 @@ curl -X POST http://localhost:8000/scan \
 
 ## 📁 Project Structure
 confidexv2/
-├── frontend/ # React chat interface
-├── apps/dashboard/ # React dashboard
-│ ├── backend/ # Dashboard backend (Node.js)
-│ └── src/ # Dashboard frontend
-├── finetuned-sg-privacy-model/ # Fine-tuned NER model
-├── backend_api.py # FastAPI backend
-├── rag.py # RAG system
-├── finetune_sg_ner.py # Model training
-├── augment_training.py # Data augmentation
-└── policy4.pdf # Policy document
+│
+├── apps/
+│   └── dashboard/           # Frontend dashboard app (React, TypeScript)
+│       ├── backend/         # Backend for dashboard (Node/Express or similar)
+│       └── src/             # Frontend source code (components, hooks, services)
+│
+├── augmented_training/      # Augmented training data and metadata
+├── finetuned-sg-privacy-model/ # (Optional) Fine-tuned model artifacts
+├── frontend/                # Standalone frontend app (React, TypeScript)
+│   └── src/                 # Frontend source code
+│
+├── modelv1/                 # Fine-tuned NER model (Hugging Face format)
+├── robust_testset/          # Robust synthetic test set for evaluation
+├── super_robust_testset/    # Extra-robust test set for evaluation
+│
+├── sg_pdpa_ner_dataset_full/ # Full NER dataset (train/val/test splits)
+├── testdata1/               # Additional test dataset 1
+├── testdata2/               # Additional test dataset 2
+│
+├── backend_api.py           # FastAPI backend for NER and privacy API
+├── sg_dataset_full.py       # Script to generate synthetic NER datasets
+├── finetune_sg_ner.py       # Script to fine-tune NER model
+├── evaluate_hf_model_on_independent_testset.py # Evaluate Hugging Face model
+├── evaluate_modelv1_on_independent_testset.py  # Evaluate modelv1
+├── generate_independent_testset.py             # Script to generate test set
+├── robust_testset_generator.py                 # Script to generate robust test set
+│
+├── requirements.txt         # Python dependencies
+├── package.json             # Node.js dependencies (frontend/backend)
+├── .gitignore               # Git ignore rules
+├── .gitattributes           # Git LFS tracking rules
+│
+└── README.md                # Project documentation (this file)
 
 
 ## 🚨 Troubleshooting
