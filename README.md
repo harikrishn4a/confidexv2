@@ -1,249 +1,117 @@
-# CONFIDEX - Privacy Monitoring System
+# Confidexv2
 
-A comprehensive privacy monitoring system that uses AI to detect and prevent sensitive data leaks in real-time chat applications.
+A privacy AI monitoring interface for detecting and handling sensitive information in text using NER models.
 
-## 🏗️ Architecture
+---
 
-- **Frontend**: React chat interface with privacy monitoring
-- **Backend API**: FastAPI server with fine-tuned NER model and RAG system
-- **Dashboard**: Real-time monitoring dashboard for privacy violations
-- **AI Models**: Fine-tuned DistilBERT for NER + RAG with policy documents
+## 🚀 Getting Started
 
-## 🚀 Quick Start
+### 1. Clone the repository
+```bash
+git clone https://github.com/harikrishn4a/confidexv2.git
+cd confidexv2
+```
 
-### Prerequisites
-
-- Python 3.8+
-- Node.js 18+
-- Ollama (for LLM inference)
-- 8GB+ RAM (for ML models)
-
-### 1. Install Python Dependencies
-
+### 2. Install Python dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Install Node.js Dependencies
-
-```bash
-# Frontend
-cd frontend
-npm install
-
-# Dashboard
-cd apps/dashboard
-npm install
-
-# Dashboard Backend
-cd apps/dashboard/backend
-npm install
-```
-
-### 3. Setup Ollama
-
-```bash
-# Install Ollama (https://ollama.ai)
-ollama pull llama3.1
-```
-
-### 4. Start the Services
-
-#### Terminal 1: Backend API
-```bash
-cd /path/to/project
-uvicorn backend_api:app --host 0.0.0.0 --port 8000 --reload
-```
-
-#### Terminal 2: Dashboard Backend
-```bash
-cd apps/dashboard/backend
-npm start
-```
-
-#### Terminal 3: Frontend
+### 3. Install Node.js dependencies (for frontend)
 ```bash
 cd frontend
-npm run dev
+npm install
 ```
 
-#### Terminal 4: Dashboard
+---
+
+## 🧪 Testing
+
+### Test the RAG system
 ```bash
-cd apps/dashboard
-npm run dev
-```
-
-### 5. Access the Applications
-
-- **Frontend**: http://localhost:5173
-- **Dashboard**: http://localhost:5174
-- **Backend API**: http://localhost:8000
-- **Dashboard Backend**: http://localhost:5000
-
-## �� Configuration
-
-### Environment Variables
-
-Create `.env` file in the root directory:
-
-```env
-# Ollama Configuration
-OLLAMA_BASE_URL=http://localhost:11434
-
-# Database Configuration
-DB_PATH=sensitive_data_log.db
-
-# API Configuration
-API_HOST=0.0.0.0
-API_PORT=8000
-```
-
-### Model Configuration
-
-The system uses:
-- **Fine-tuned NER Model**: `finetuned-sg-privacy-model/` (already included)
-- **RAG System**: Uses `policy4.pdf` for policy compliance
-- **LLM**: Ollama with llama3.1 model
-
-## 📊 Features
-
-### Frontend
-- Real-time chat interface
-- Privacy monitoring toggle
-- Live privacy analysis sidebar
-- Block/allow decisions based on AI analysis
-
-### Backend
-- NER-based sensitive data detection
-- RAG-powered policy compliance checking
-- Real-time logging of violations
-- RESTful API endpoints
-
-### Dashboard
-- Real-time violation monitoring
-- Data type risk assessment
-- Usage analytics
-- Alert management
-
-## 🔍 How It Works
-
-1. **Input Processing**: User types in chat interface
-2. **Privacy Check**: If monitoring is enabled, text is sent to backend
-3. **NER Analysis**: Fine-tuned model detects sensitive entities
-4. **Policy Check**: RAG system checks against policy documents
-5. **Decision**: System decides to block or allow the message
-6. **Logging**: All violations are logged to database
-7. **Dashboard**: Real-time updates show violations and trends
-
-## 🛠️ Development
-
-### Training the Model
-
-```bash
-# Generate augmented training data
-python augment_training.py
-
-# Fine-tune the model
-python finetune_sg_ner.py
-```
-
-### Testing
-
-```bash
-# Test the RAG system
 python rag.py
+```
 
-# Test the backend API
+### Test the backend API
+```bash
 curl -X POST http://localhost:8000/scan \
   -H "Content-Type: application/json" \
   -d '{"text": "My salary is $50,000"}'
 ```
 
+---
+
 ## 📁 Project Structure
+
+```
 confidexv2/
 │
 ├── apps/
-│ └── dashboard/ # Frontend dashboard app (React, TypeScript)
-│ ├── backend/ # Backend for dashboard (Node/Express or similar)
-│ └── src/ # Frontend source code (components, hooks, services)
+│   └── dashboard/           # Frontend dashboard app (React, TypeScript)
+│       ├── backend/         # Backend for dashboard (Node/Express or similar)
+│       └── src/             # Frontend source code (components, hooks, services)
 │
-├── augmented_training/ # Augmented training data and metadata
+├── augmented_training/      # Augmented training data and metadata
 ├── finetuned-sg-privacy-model/ # (Optional) Fine-tuned model artifacts
-├── frontend/ # Standalone frontend app (React, TypeScript)
-│ └── src/ # Frontend source code
+├── frontend/                # Standalone frontend app (React, TypeScript)
+│   └── src/                 # Frontend source code
 │
-├── modelv1/ # Fine-tuned NER model (Hugging Face format)
-├── robust_testset/ # Robust synthetic test set for evaluation
-├── super_robust_testset/ # Extra-robust test set for evaluation
+├── modelv1/                 # Fine-tuned NER model (Hugging Face format)
+├── robust_testset/          # Robust synthetic test set for evaluation
+├── super_robust_testset/    # Extra-robust test set for evaluation
 │
 ├── sg_pdpa_ner_dataset_full/ # Full NER dataset (train/val/test splits)
-├── testdata1/ # Additional test dataset 1
-├── testdata2/ # Additional test dataset 2
+├── testdata1/               # Additional test dataset 1
+├── testdata2/               # Additional test dataset 2
 │
-├── backend_api.py # FastAPI backend for NER and privacy API
-├── sg_dataset_full.py # Script to generate synthetic NER datasets
-├── finetune_sg_ner.py # Script to fine-tune NER model
-├── requirements.txt # Python dependencies
-├── package.json # Node.js dependencies (frontend/backend)
-├── .gitignore # Git ignore rules
-├── .gitattributes # Git LFS tracking rules
-└── README.md # Project documentation (this file)
-
-## 🚨 Troubleshooting
-
-### Common Issues
-
-1. **Ollama not running**
-   ```bash
-   ollama serve
-   ```
-
-2. **Model loading errors**
-   - Ensure `finetuned-sg-privacy-model/` directory exists
-   - Check model files are complete
-
-3. **Port conflicts**
-   - Change ports in respective config files
-   - Update proxy settings in `frontend/vite.config.ts`
-
-4. **Database errors**
-   - Ensure SQLite is installed
-   - Check file permissions for `sensitive_data_log.db`
-
-### Performance Optimization
-
-- Use GPU acceleration for model inference
-- Increase batch sizes for better throughput
-- Optimize database queries for large datasets
-
-## 📈 Monitoring
-
-The dashboard provides:
-- Real-time violation counts
-- Data type risk scores
-- Usage trends
-- Alert management
-- Export capabilities
-
-## 🔒 Security
-
-- All sensitive data is processed locally
-- No data is sent to external services
-- Database is encrypted and secured
-- API endpoints are protected with CORS
-
-## 📝 License
-
-This project is for hackathon demonstration purposes.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+├── backend_api.py           # FastAPI backend for NER and privacy API
+├── sg_dataset_full.py       # Script to generate synthetic NER datasets
+├── finetune_sg_ner.py       # Script to fine-tune NER model
+├── requirements.txt         # Python dependencies
+├── package.json             # Node.js dependencies (frontend/backend)
+├── .gitignore               # Git ignore rules
+├── .gitattributes           # Git LFS tracking rules
+└── README.md                # Project documentation (this file)
+```
 
 ---
 
-**Note**: This is an MVP hackathon project. For production use, additional security measures, error handling, and scalability improvements would be needed.
+## 🤗 Check Out the Trained Model
+
+You can view and use the trained model directly on Hugging Face:
+
+[**hkrishn4a/modelv1 on Hugging Face Hub**](https://huggingface.co/hkrishn4a/modelv1)
+
+[![Hugging Face](https://img.shields.io/badge/HuggingFace-modelv1-yellow?logo=huggingface)](https://huggingface.co/hkrishn4a/modelv1)
+
+---
+
+## 🎬 CONFIDEX Demo Video
+
+[![Watch the demo](https://img.youtube.com/vi/PCxaYwXkVMU/hqdefault.jpg)](https://youtu.be/PCxaYwXkVMU)
+
+---
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+**1. Ollama not running**
+```bash
+ollama serve
+```
+
+**2. Model loading errors**
+- Ensure `finetuned-sg-privacy-model/` directory exists
+
+---
+
+## 📄 License
+
+[MIT](LICENSE) (or your chosen license)
+
+---
+
+## 🙋‍♂️ Contact
+
+For questions or support, open an issue or contact [harikrishn4a](https://github.com/harikrishn4a).
