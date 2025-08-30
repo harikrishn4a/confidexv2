@@ -1,37 +1,18 @@
-import React, { useState } from 'react';
-import { Shield, AlertTriangle, TrendingUp, Users, FileText, Settings, Download, Search } from 'lucide-react';
+import { Shield, Download } from 'lucide-react';
 import Dashboard from './components/Dashboard';
-import ViolationReports from './components/ViolationReports';
-import DataUsage from './components/DataUsage';
-import RiskAssessment from './components/RiskAssessment';
-import SettingsPanel from './components/SettingsPanel';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
 
-  const navigation = [
-    { id: 'dashboard', name: 'Dashboard', icon: Shield },
-    { id: 'violations', name: 'Violations', icon: AlertTriangle },
-    { id: 'usage', name: 'Data Usage', icon: TrendingUp },
-    { id: 'risk', name: 'Risk Assessment', icon: Users },
-    { id: 'settings', name: 'Settings', icon: Settings },
-  ];
+  // const navigation = [
+  //   { id: 'dashboard', name: 'Dashboard', icon: Shield },
+  //   { id: 'violations', name: 'Violations', icon: AlertTriangle },
+  //   { id: 'usage', name: 'Data Usage', icon: TrendingUp },
+  //   { id: 'risk', name: 'Risk Assessment', icon: Users },
+  //   { id: 'settings', name: 'Settings', icon: Settings },
+  // ];
 
   const renderContent = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return <Dashboard />;
-      case 'violations':
-        return <ViolationReports />;
-      case 'usage':
-        return <DataUsage />;
-      case 'risk':
-        return <RiskAssessment />;
-      case 'settings':
-        return <SettingsPanel />;
-      default:
-        return <Dashboard />;
-    }
+      return <Dashboard />;
   };
 
   return (
@@ -43,7 +24,7 @@ function App() {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Shield className="h-8 w-8 text-blue-600" />
-                <h1 className="text-xl font-bold text-gray-900">PrivacyGuard</h1>
+                <h1 className="text-xl font-bold text-gray-900">CONFIDEX</h1>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -60,7 +41,7 @@ function App() {
         </div>
       </header>
 
-      {/* Navigation */}
+      {/* Navigation
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8">
@@ -83,10 +64,10 @@ function App() {
             })}
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {renderContent()}
       </main>
     </div>

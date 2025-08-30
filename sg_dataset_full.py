@@ -236,4 +236,4 @@ def make_pdpa_dataset(n_per_label=10) -> DatasetDict:
 
 if __name__ == "__main__":
     dataset = make_pdpa_dataset(n_per_label=15)
-    dataset.save_to_disk("testdata2")
+    dataset.save_to_disk("testdata3")
