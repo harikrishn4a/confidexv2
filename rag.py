@@ -20,6 +20,7 @@ cursor = conn.cursor()
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS flagged_data (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
     data_type TEXT NOT NULL,
     count INTEGER DEFAULT 1,
     last_flagged TIMESTAMP DEFAULT CURRENT_TIMESTAMP

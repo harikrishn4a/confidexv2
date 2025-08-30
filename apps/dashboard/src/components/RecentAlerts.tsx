@@ -1,5 +1,4 @@
-import React from 'react';
-import { AlertTriangle, Clock, User } from 'lucide-react';
+import { AlertTriangle, Clock } from 'lucide-react';
 import { useRecentAlerts } from '../hooks/useDatabase';
 
 const RecentAlerts = () => {

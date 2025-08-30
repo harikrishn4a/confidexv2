@@ -6,11 +6,11 @@ conn = sqlite3.connect(DB_PATH)
 cursor = conn.cursor()
 
 # # Add the 'name' column to the 'flagged_data' table (if it doesn't already exist)
-cursor.execute("""
-    ALTER TABLE flagged_data
-    ADD COLUMN name TEXT;
-""")
-conn.commit()
+# cursor.execute("""
+#     ALTER TABLE flagged_data
+#     ADD COLUMN name TEXT;
+# """)
+# conn.commit()
 
 # Create the 'flagged_data' table if it does not exist
 cursor.execute("""
@@ -26,11 +26,26 @@ conn.commit()
 
 # Insert dummy data into the flagged_data table (no need to manually provide timestamp)
 dummy_data = [
-    ('Alice', 'NRIC', 5),
-    ('Bob', 'API_KEY', 3),
-    ('Charlie', 'SALARY', 2),
-    ('Diana', 'FIN', 7),
-    ('Eve', 'PHONE', 4),
+    # ('Alice', 'NRIC', 5),
+    # ('Bob', 'API_KEY', 3),
+    # ('Charlie', 'SALARY', 2),
+    # ('Diana', 'FIN', 7),
+    # ('Eve', 'PHONE', 4),
+    ('Frank', 'PASSPORT', 16),
+    ('Grace', 'SSN', 8),
+    ('Hannah', 'EMAIL', 13),
+    ('Ian', 'BANK_ACCOUNT_NUMBER', 10),
+    ('Jack', 'CREDIT_CARD', 9),
+    ('Kara', 'TRANSACTION_HISTORY', 5),
+    ('Leo', 'SALARY', 12),
+    ('Mia', 'COMMISSION_RATE', 11),
+    ('Nina', 'AMOUNT_OF_MONEY', 4),
+    ('Oscar', 'ACCOUNT_BALANCE', 7),
+    ('Paul', 'BUDGET', 3),
+    ('Quincy', 'INVOICE_ID', 15),
+    ('Rachel', 'PO_NUMBER', 6),
+    ('Sam', 'FINANCIAL_REPORT', 8),
+    ('Tina', 'PRICING_TERM', 4)
 ]
 
 # Insert the dummy data into the flagged_data table with CURRENT_TIMESTAMP
