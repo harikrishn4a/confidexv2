@@ -1,4 +1,3 @@
-import React from 'react';
 import { Shield, AlertTriangle } from 'lucide-react';
 import { useDataTypeRisks } from '../hooks/useDatabase';
 
