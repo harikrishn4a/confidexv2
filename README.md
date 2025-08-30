@@ -52,10 +52,6 @@ confidexv2/
 │       └── src/             # Frontend source code (components, hooks, services)
 │
 ├── augmented_training/      # Augmented training data and metadata
-├── finetuned-sg-privacy-model/ # (Optional) Fine-tuned model artifacts
-├── frontend/                # Standalone frontend app (React, TypeScript)
-│   └── src/                 # Frontend source code
-│
 ├── modelv1/                 # Fine-tuned NER model (Hugging Face format)
 ├── robust_testset/          # Robust synthetic test set for evaluation
 ├── super_robust_testset/    # Extra-robust test set for evaluation
@@ -102,7 +98,7 @@ ollama serve
 ```
 
 **2. Model loading errors**
-- Ensure `finetuned-sg-privacy-model/` directory exists
+- Ensure `modelv1/` directory exists
 
 ---
 
