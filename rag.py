@@ -50,7 +50,7 @@ def log_flagged_data(data_type: str):
     conn.close()
 
 #read pdf 
-PDF_PATH = "POLICY2.pdf"
+PDF_PATH = "policy4.pdf"
 pdf_reader = PdfReader(PDF_PATH)
 
 raw_text = ""
@@ -100,7 +100,7 @@ vector_store = FAISS.from_documents(
 )
 
 #retriever
-retriever = vector_store.as_retriever(search_kwargs={"k": 4})
+retriever = vector_store.as_retriever(search_kwargs={"k": 3})
 
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
@@ -112,20 +112,20 @@ llm = OllamaLLM(
 )
 
 system_prompt = """
-You are an AI assistant that explains why certain information is sensitive or confidential. 
-Use the context from the document to answer questions about data sensitivity. 
+You are a compliance assistant for business employees handling sensitive company and customer data. Your job is to explain, using only the provided policy context, whether sharing a specific piece of information is allowed, and why.
 
 Rules:
-1. Only use information from the provided context to answer questions.
+1. Only answer about the specific data type or example in the question (e.g., PASSPORT). Do not mention other clauses or data types unless the policy explicitly links them.
 2. Be clear, specific, and concise.
-3. Ensure that you provide the response in the format: "Clause [clause_number]: [reason]".
+3. Do not output your thinking process, only output the answer which is "Clause [clause_number]: [reason/explanation]"
+4. Format: "Clause [clause_number]: [reason/explanation]"
 
 Context:
 {context}
 
 Example of expected output:
-Question: "Why is NRIC sensitive?"
-Answer: "Clause 3.1.1: NRIC numbers are sensitive. NRIC numbers can be used for identity theft, fraud, and unauthorised access to personal services."
+Question: "Why is PASSPORT like 'K98765432' sensitive?"
+Answer: "Clause 5.1: Passport numbers are considered personal data and require consent for disclosure."
 
 Question: {input}
 Answer based on the context above:

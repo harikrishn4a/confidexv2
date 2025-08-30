@@ -67,19 +67,37 @@ function App() {
     };
 
     if (isRecording) {
-      // Send to privacy AI instead
       setPrivacyMessages(prev => [...prev, userMessage]);
       setPrivacyLoading(true);
-      
       try {
-        const response = await runmodel(input);
+        const response = await fetch('/scan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: input }),
+        });
+        const data = await response.json();
+        // Compose a rich message for the Privacy Agent sidebar
+        let explanationContent = '';
+        if (data.flagged && data.flagged.length > 0) {
+          explanationContent += `<div><span style="font-weight:bold;">Verdict:</span> <span style="color:${data.verdict === 'BLOCK' ? 'red' : 'green'};font-weight:bold;">${data.verdict}</span></div>`;
+          data.flagged.forEach(f => {
+            const wordsStr = Array.isArray(f.words) ? f.words.join(', ') : (f.word || '');
+            explanationContent += `<div style="margin-top:8px;"><span style="font-weight:bold;">${f.entity_group}:</span> <mark style="background: #fde68a; color: #92400e; padding: 2px 4px; border-radius: 4px;">${wordsStr}</mark><br/><span>${f.explanation}</span></div>`;
+          });
+        } else {
+          explanationContent = `<div><span style="font-weight:bold;">Verdict:</span> <span style="color:green;font-weight:bold;">ALLOW</span></div><div>No sensitive entities detected.</div>`;
+        }
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
-          content: response,
+          content: explanationContent,
           sender: 'assistant',
           timestamp: new Date(),
         };
         setPrivacyMessages(prev => [...prev, assistantMessage]);
+        // If verdict is ALLOW, also send to main chat
+        if (data.verdict === 'ALLOW') {
+          setMessages(prev => [...prev, userMessage]);
+        }
       } catch (error) {
         const errorMessage: Message = {
           id: (Date.now() + 1).toString(),
@@ -92,11 +110,8 @@ function App() {
         setPrivacyLoading(false);
       }
     } else {
-      // Normal ChatGPT-like behavior (simulated)
       setMessages(prev => [...prev, userMessage]);
       setIsLoading(true);
-      
-      // Simulate response
       setTimeout(() => {
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
@@ -108,7 +123,6 @@ function App() {
         setIsLoading(false);
       }, 1000);
     }
-
     setInput('');
   };
 
@@ -301,7 +315,12 @@ function App() {
                       {message.timestamp.toLocaleTimeString()}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-100 whitespace-pre-wrap">{message.content}</p>
+                  {/* Render HTML for assistant messages */}
+                  {message.sender === 'assistant' ? (
+                    <div className="text-sm text-gray-100 whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: message.content }} />
+                  ) : (
+                    <p className="text-sm text-gray-100 whitespace-pre-wrap">{message.content}</p>
+                  )}
                 </div>
               </div>
             ))}

@@ -3,13 +3,13 @@ from typing import List, Dict
 from datasets import Dataset, DatasetDict
 
 print("Script started")
-random.seed(7)
+random.seed(28)
 
 # Full label set for your ML model
 BASE_LABELS = [
     "NRIC","FIN","PASSPORT",
     "API_KEY","ACCESS_TOKEN",
-    "SALARY","COMMISSION_RATE","AMOUNT_MONEY","ACCOUNT_BALANCE",
+    "SALARY","COMMISSION_RATE",
     "BUDGET","INVOICE_ID","PO_NUMBER","FINANCIAL_REPORT","PRICING_TERM",
     "PROJECT_CODE","SOURCE_CODE",
     "EMAIL", "PHONE", "SSN", "CREDIT_CARD", "ACCOUNT_NUMBER", "PERSON", "KEY", "FINANCIAL"
@@ -236,5 +236,4 @@ def make_pdpa_dataset(n_per_label=10) -> DatasetDict:
 
 if __name__ == "__main__":
     dataset = make_pdpa_dataset(n_per_label=15)
-    dataset.save_to_disk("sg_pdpa_ner_dataset_full")
-    print("Full dataset saved to sg_pdpa_ner_dataset_full")
+    dataset.save_to_disk("testdata2")

@@ -6,7 +6,22 @@ import numpy as np
 from seqeval.metrics import classification_report, f1_score, accuracy_score, precision_score, recall_score
 
 # Load your focused dataset for PERSON, EMAIL, PHONE
-dataset = load_from_disk("sg_pdpa_ner_dataset_full")
+dataset = load_from_disk("augmented_training")  # adjust path as needed
+print("Loaded dataset type:", type(dataset))
+if hasattr(dataset, "keys"):
+    print("DatasetDict keys:", list(dataset.keys()))
+    # Use splits
+    for split in ["train", "validation", "test"]:
+        if split in dataset:
+            print(f"Processing split: {split}")
+            for example in dataset[split]:
+                # your processing code here
+                pass
+else:
+    print("Single Dataset loaded, iterating directly.")
+    for example in dataset:
+        # your processing code here
+        pass
 
 # Define your label set
 BASE_LABELS = [
@@ -29,7 +44,7 @@ for split in ["train", "validation", "test"]:
 print("All unique labels in dataset:", all_labels)
 
 # Use base DistilBERT
-model_name = "Isotonic/distilbert_finetuned_ai4privacy_v2"
+model_name = "finetuned-sg-privacy-model"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 config = AutoConfig.from_pretrained(model_name, num_labels=len(label2id), id2label=id2label, label2id=label2id)
 model = AutoModelForTokenClassification.from_pretrained(model_name, config=config, ignore_mismatched_sizes=True)
@@ -105,8 +120,8 @@ trainer = Trainer(
 )
 
 trainer.train()
-trainer.save_model("finetuned-sg-privacy-model")
-tokenizer.save_pretrained("finetuned-sg-privacy-model")
+trainer.save_model("modelv1")
+tokenizer.save_pretrained("modelv1")
 
 metrics = trainer.evaluate()
 print("Detailed classification report:")
