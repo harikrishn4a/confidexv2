@@ -1,5 +1,13 @@
 # Confidexv2
 
+> **Problem Statement 7**
+>
+> As AI technologies rapidly integrate into our daily lives, concerns about privacy and security have become more urgent than ever. With the rise of powerful generative AI models, large-scale data collection, and cloud-based deployment, users face increasing risks: sensitive data leakage, identity theft, etc.
+>
+> This hackathon invites participants to explore solutions in the following areas:
+> - Enhancing the privacy of AI systems themselves (Privacy of AI); and/or
+> - Using AI to defend user privacy and security (AI for Privacy).
+
 A privacy AI monitoring interface for detecting and handling sensitive information in text using NER models.
 
 ---
