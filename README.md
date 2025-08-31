@@ -60,6 +60,7 @@ node server.js
 ```
 Launch the dashboard web application
 ```bash
+cd apps/dashboard
 npm run dev
 ```
 
