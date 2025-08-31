@@ -31,6 +31,18 @@ cd frontend
 npm install
 ```
 
+### 3. Install Node.js dependencies (for dashboard)
+```bash
+cd apps/dashboard
+npm install
+```
+
+### 3. Install Node.js dependencies (for backend)
+```bash
+cd backend
+npm install
+```
+
 ---
 
 ## 🧪 Testing
@@ -40,11 +52,15 @@ npm install
 python rag.py
 ```
 
-### Test the backend API
+### Test the dashboard feature
+Run the Node.js server
 ```bash
-curl -X POST http://localhost:8000/scan \
-  -H "Content-Type: application/json" \
-  -d '{"text": "My salary is $50,000"}'
+cd backend
+node server.js
+```
+Launch the dashboard web application
+```bash
+npm run dev
 ```
 
 ---
@@ -56,9 +72,8 @@ confidexv2/
 │
 ├── apps/
 │   └── dashboard/           # Frontend dashboard app (React, TypeScript)
-│       ├── backend/         # Backend for dashboard (Node/Express or similar)
 │       └── src/             # Frontend source code (components, hooks, services)
-│
+├── backend/                 # Backend for dashboard (Node)
 ├── augmented_training/      # Augmented training data and metadata
 ├── modelv1/                 # Fine-tuned NER model (Hugging Face format)
 ├── robust_testset/          # Robust synthetic test set for evaluation
